@@ -1,0 +1,22 @@
+# sequencing/alignment intermediates and large outputs
+*.fastq.gz
+*.fastq
+*.bam
+*.bam.bai
+*.sam
+*.bw
+*.bigWig
+
+# SLURM logs
+file.*.out
+file.*.err
+slurm-*.out
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# misc
+.DS_Store
+*.swp

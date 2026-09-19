@@ -1,0 +1,26 @@
+# Sample sheet for the MNase-fractionated 5hmC CUT&Tag demo dataset.
+# Source: SRP684244 (public), fetched via:
+#   https://www.ebi.ac.uk/ena/portal/api/filereport?accession=SRP684244&result=read_run&fields=run_accession,sample_title,library_name,fastq_ftp,library_strategy,instrument_model&format=tsv
+# Only submono and sonicated fractions are public; mono is listed as NOT_PUBLIC and will be
+# skipped by scripts/04_diffbind_differential_occupancy.R's mono-involving contrasts.
+#
+# sample_id                 run_accession  fraction    biol_sample  type   fastq_ftp
+sample_id	run_accession	fraction	biol_sample	type	fastq_ftp
+submono_1590	SRR37650364	submono	1590	IP	ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/064/SRR37650364/SRR37650364_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/064/SRR37650364/SRR37650364_2.fastq.gz
+submono_1590_input	SRR37650365	submono	1590	input	ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/065/SRR37650365/SRR37650365_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/065/SRR37650365/SRR37650365_2.fastq.gz
+submono_1592	SRR37650362	submono	1592	IP	ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/062/SRR37650362/SRR37650362_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/062/SRR37650362/SRR37650362_2.fastq.gz
+submono_1592_input	SRR37650363	submono	1592	input	ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/063/SRR37650363/SRR37650363_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/063/SRR37650363/SRR37650363_2.fastq.gz
+submono_B6	SRR37650370	submono	B6	IP	ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/070/SRR37650370/SRR37650370_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/070/SRR37650370/SRR37650370_2.fastq.gz
+submono_B6_input	SRR37650371	submono	B6	input	ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/071/SRR37650371/SRR37650371_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/071/SRR37650371/SRR37650371_2.fastq.gz
+sonicated_1590	SRR37650372	sonicated	1590	IP	ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/072/SRR37650372/SRR37650372_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/072/SRR37650372/SRR37650372_2.fastq.gz
+sonicated_1590_input	SRR37650373	sonicated	1590	input	ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/073/SRR37650373/SRR37650373_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/073/SRR37650373/SRR37650373_2.fastq.gz
+sonicated_1592	SRR37650368	sonicated	1592	IP	ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/068/SRR37650368/SRR37650368_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/068/SRR37650368/SRR37650368_2.fastq.gz
+sonicated_1592_input	SRR37650369	sonicated	1592	input	ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/069/SRR37650369/SRR37650369_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/069/SRR37650369/SRR37650369_2.fastq.gz
+sonicated_B6	SRR37650366	sonicated	B6	IP	ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/066/SRR37650366/SRR37650366_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/066/SRR37650366/SRR37650366_2.fastq.gz
+sonicated_B6_input	SRR37650367	sonicated	B6	input	ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/067/SRR37650367/SRR37650367_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/SRR376/067/SRR37650367/SRR37650367_2.fastq.gz
+mono_1590	NOT_PUBLIC	mono	1590	IP	NA
+mono_1590_input	NOT_PUBLIC	mono	1590	input	NA
+mono_1592	NOT_PUBLIC	mono	1592	IP	NA
+mono_1592_input	NOT_PUBLIC	mono	1592	input	NA
+mono_B6	NOT_PUBLIC	mono	B6	IP	NA
+mono_B6_input	NOT_PUBLIC	mono	B6	input	NA
