@@ -1,0 +1,61 @@
+# Mark -> public run mapping for the ChromHMM 20-state demo.
+# All ChIP-seq marks are from GSE82144 (Kieffer-Kwon/Casellas mouse B-cell resource),
+# ENA study SRP075985, "rB_wt_<mark>" sample titles (rB = resting B = naive B, wild-type).
+# Single-end, Illumina HiSeq 2500, ~25-30M reads/run. One shared input control.
+# Fetched via:
+#   https://www.ebi.ac.uk/ena/portal/api/filereport?accession=SRP075985&result=read_run&fields=run_accession,sample_title,library_strategy&format=tsv
+#
+# Where a mark has multiple replicates in the source (CTCF, Rad21, HDAC1), rep1 is used here;
+# alternates are listed in the notes column for anyone who wants to swap or pool them.
+#
+# mark is the exact name expected in cellmark_template.tab / ChromHMM's output (matches the
+# original lab's cellmark.tab so downstream state interpretation stays comparable).
+#
+# mark	run_accession	source_sample_title	notes
+Brg1	SRR3619348	rB_wt_Brg1
+CHD4	SRR3619349	rB_wt_Chd4
+CTCF	SRR3619360	rB_wt_CTCF_rep1	alt reps: SRR3619361 (rep2), SRR3619362 (rep3), SRR5658506 (rep4), SRR5658507 (rep5)
+GCN5	SRR3619350	rB_wt_GCN5
+h2ak9ac	SRR3619299	rB_wt_H2AK9Ac
+H2AZ	SRR3619300	rB_wt_H2AZ
+h2bk120ac	SRR3619301	rB_wt_H2BK120Ac
+h2bk12ac	SRR3619302	rB_wt_H2BK12Ac
+h2bk20ac	SRR3619303	rB_wt_H2BK20Ac
+h2bk5ac	SRR3619304	rB_wt_H2BK5Ac
+h3k14ac	SRR3619306	rB_wt_H3K14Ac
+h3k18ac	SRR3619307	rB_wt_H3K18Ac
+h3k23ac	SRR3619308	rB_wt_H3K23Ac
+h3k27ac	SRR3619298	rB_wt_H3K27Ac
+h3k27me1	SRR3619309	rB_wt_H3K27me1
+h3k27me2	SRR3619310	rB_wt_H3K27me2
+h3k27me3	SRR3619311	rB_wt_H3K27me3
+h3k36ac	SRR3619312	rB_wt_H3K36Ac
+h3k36me1	SRR3619313	rB_wt_H3K36me1
+h3k36me2	SRR3619314	rB_wt_H3K36me2
+h3k36me3	SRR3619315	rB_wt_H3K36me3
+h3k4ac	SRR3619316	rB_wt_H3K4Ac
+H3K4me1	SRR3619317	rB_wt_H3K4me1
+h3k4me2	SRR3619318	rB_wt_H3K4me2
+h3k4me3	SRR3619319	rB_wt_H3K4me3
+h3k79me1	SRR3619320	rB_wt_H3K79me1
+h3k79me2	SRR3619321	rB_wt_H3K79me2
+h3k79me3	SRR3619322	rB_wt_H3K79me3
+h3k9Ac	SRR3619323	rB_wt_H3K9Ac
+h3k9me1	SRR3619324	rB_wt_H3K9me1
+h3k9me2	SRR3619325	rB_wt_H3K9me2
+h3k9me3	SRR3619326	rB_wt_H3K9me3
+h4k12Ac	SRR3619327	rB_wt_H4K12Ac
+h4k16Ac	SRR3619328	rB_wt_H4K16Ac
+h4k20me1	SRR3619329	rB_wt_H4K20me1
+h4k20me3	SRR3619330	rB_wt_H4K20me3
+h4k5Ac	SRR3619331	rB_wt_H4K5Ac
+h4k8Ac	SRR3619332	rB_wt_H4K8Ac
+h4k91Ac	SRR3619333	rB_wt_H4K91Ac
+HDAC1	SRR3619351	rB_wt_HDAC1	alt rep: SRR3619352 (rep2)
+HDAC2	SRR3619353	rB_wt_HDAC2
+MLL1	SRR3619354	rB_wt_Mll1
+p300	SRR3619356	rB_wt_p300
+Rad21	SRR3619364	rB_wt_Rad21_rep1	alt reps: SRR3619365 (rep2), SRR3619366 (rep3), SRR5658502 (rep4), SRR5658503 (rep5)
+WDR5	SRR3619355	rB_wt_Wdr5
+input	SRR10192161	rB_wt input	shared control for all marks above
+Son_5hmC	NOT_A_PUBLIC_RUN	n/a	comes from ../flagship-mnase-5hmc-diffbind/ stage 03 output (sonicated-fraction 5hmC MACS2 peaks) — cross-pipeline input, not a separate SRA run

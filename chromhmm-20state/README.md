@@ -1,50 +1,63 @@
 # ChromHMM 20-State Chromatin Annotation
 
-**Status: scaffolded, not yet built out.** This is one of two secondary pipelines held in reserve
-(see repo root README) — organized here so the directory structure and source material are
-locked in, but the stage scripts themselves haven't been cleaned up yet the way the
-[flagship pipeline](../flagship-mnase-5hmc-diffbind/) has.
+Learns a 20-state chromatin annotation (ChromHMM) from a panel of 46 ChIP-seq marks in naïve
+mouse B cells — histone PTMs, chromatin remodelers (Brg1, CHD4, MLL1, WDR5), architectural
+proteins (CTCF, Rad21), HDAC1/2, p300, H2A.Z, and this portfolio's own 5hmC calls — then calls
+per-bin chromatin states genome-wide. Source: `MH050_chromHMM_land/` (see repo root README for
+provenance).
 
-## What it does
+## Pipeline stages
 
-Learns a multi-state chromatin annotation (ChromHMM) from a panel of ~43 ChIP-seq/CUT&Tag marks
-in naïve mouse B cells — histone PTMs, chromatin remodelers (Brg1, CHD4, MLL1, WDR5), architectural
-proteins (CTCF, Rad21), HDAC1/2, p300, and H2A.Z — then calls per-mark, per-state genome
-annotations from the learned model. Source: `MH050_chromHMM_land/` (see below).
+| Stage | Script | What it does |
+|---|---|---|
+| 1 | `scripts/01_align_single_end.sh` | Trim (Trim Galore) → align to mm10 (Bowtie2, single-end) → filter to mapped reads → dedup (Picard) |
+| 2 | `scripts/02_call_peaks.sh` | MACS2 `callpeak`, one mark's IP BAM vs. the shared input BAM, `-f BAM -q 0.05 --keep-dup all` |
+| 3 | `scripts/03_binarize.sh` | ChromHMM `BinarizeBed -peaks`: turn all 46 marks' narrowPeaks into ChromHMM's binary presence/absence matrix, per chromosome |
+| 4 | `scripts/04_learn_model.sh` | ChromHMM `LearnModel`: fit a 20-state HMM and produce the full report (segmentation, emission/transition parameters, TSS/TES enrichment, browser tracks, summary webpage) |
 
-## Pipeline stages (from source material)
+Each script has a header block listing its declared inputs, outputs, and parameters.
 
-1. **Binarize** each mark's narrowPeak calls against the genome, keyed by a `cellmark.tab`
-   sample table (`<celltype> <mark> <narrowPeak file>`, one row per mark — e.g.
-   `062323_cellmark.tab` lists 43 marks for cell type `nB`). ChromHMM's `BinarizeBed`.
-2. **LearnModel**: fit a hidden Markov model over the binarized marks to learn emission/transition
-   parameters and assign chromatin states (20 states in the original run — `062323_learningOutput_all/`).
-3. State calling / annotation: apply the learned model to produce a per-bin state assignment
-   across the genome, and characterize what each state's mark combination represents (active
-   promoter, enhancer, heterochromatin, etc.).
+## No original driver script survived for stages 3–4 either
 
-Variant runs also exist that drop specific marks to test robustness (`061223_binarized_MH049_hmCless`,
-`062323_binarized_MH049_H2AZless`) — worth keeping as a "does the model degrade gracefully"
-talking point if this pipeline gets built out further.
+Same situation as the flagship pipeline's DiffBind stage: only the narrowPeak files, the
+`cellmark.tab` sample table, and the `LearnModel` output (`model_20.txt`, `emissions_20.txt`,
+etc.) survive from the original run — no `.sh` driver for the `BinarizeBed`/`LearnModel` calls
+themselves. `scripts/03_binarize.sh` and `scripts/04_learn_model.sh` are written directly from
+ChromHMM's own CLI usage text (`java -jar ChromHMM.jar BinarizeBed`/`LearnModel` with no
+arguments prints full usage) plus the surviving `model_20.txt` naming (`nB`, 20 states, mm10),
+not copied from any recovered script.
 
-## Demo data (candidate public accessions — not yet wired up)
+## Demo data
 
-- [`GSE116208`](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE116208) — "TET enzymes
-  augment AID expression via 5hmC modifications at the Aicda superenhancer" (Lio lab). Likely
-  source for some of the ChromHMM mark panel.
-- [`GSE82144`](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE82144) — "Myc regulates
-  chromatin decompaction and nuclear architecture during B cell activation"
-  (Kieffer-Kwon/Casellas). Source of CTCF, Rad21, Brg1, MLL1, WDR5, HDAC1/2, GCN5, CHD4, p300
-  peaks present in `MH050_chromHMM_land/` as `*_0h.narrowPeak`.
+**Public accession:** [`GSE82144`](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE82144)
+/ ENA study `SRP075985` (Kieffer-Kwon/Casellas mouse B-cell resource) — its `rB_wt_<mark>`
+("resting B, wild-type" = naïve B) ChIP-seq runs cover **all 45 of the 46 marks** in this
+pipeline's panel, plus one shared input control. Single-end, Illumina HiSeq 2500,
+~25–30M reads/run. See `config/samples.tsv` for the full mark → run accession mapping (built from
+that study's run-level metadata) and `config/cellmark_template.tab` for the ChromHMM-format
+sample table. Where a mark has multiple replicates in the source (CTCF, Rad21, HDAC1), the demo
+uses rep1; alternates are noted in `config/samples.tsv`.
 
-A full 43-mark demo isn't realistic to assemble from public data alone; a reduced-panel demo
-(the subset actually traceable to GSE116208/GSE82144) is the more honest target once this
-pipeline gets built out.
+The one mark public ChIP-seq data can't supply is `Son_5hmC` — this pipeline's only
+self-generated mark. It comes directly from
+[`../flagship-mnase-5hmc-diffbind/`](../flagship-mnase-5hmc-diffbind/) stage 03's output (the
+sonicated-fraction 5hmC MACS2 peaks), so running this pipeline's demo end-to-end means running
+the flagship's stages 0–3 first for at least one sonicated sample.
 
-## TODO before this is portfolio-ready
+Fetch a mark's FASTQ with, e.g.:
 
-- [ ] Identify which of the 43 marks in `062323_cellmark.tab` map to which public accession/run
-- [ ] Write a cleaned `01_binarize.sh` (ChromHMM `BinarizeBed`, parameterized on a cellmark table + peaks dir)
-- [ ] Write a cleaned `02_learn_model.sh` (ChromHMM `LearnModel`, parameterized on state count)
-- [ ] Write a `03_annotate_states.sh` / state-characterization step
-- [ ] Decide whether to keep the full 20-state model or trim to states with clear public-data support
+```bash
+prefetch SRR3619348 && fasterq-dump --split-files SRR3619348   # single-end: only *_1 is produced
+```
+
+## Environment
+
+```bash
+conda create -n chromhmm-panel -c bioconda -c conda-forge \
+  fastqc trim-galore bowtie2 samtools picard macs2 openjdk
+```
+
+ChromHMM itself is a jar, not a conda package — point `$CHROMHMM_JAR` (or the `-j` flag on
+stages 3–4) at your own copy, e.g. download from
+[compbio.mit.edu/ChromHMM](http://compbio.mit.edu/ChromHMM/). ChromHMM ships its own mm10 chrom
+sizes/TSS/TES coordinate files, so `-a mm10` in stage 4 works without any extra genome download.
