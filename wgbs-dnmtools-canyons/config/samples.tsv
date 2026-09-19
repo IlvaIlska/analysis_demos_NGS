@@ -1,0 +1,7 @@
+# Demo run for the WGBS/DNMTools methylation canyon pipeline.
+# Public accession SRP029721 (Casellas lab mouse B-cell WGBS resource).
+# Confirmed via:
+#   https://www.ebi.ac.uk/ena/portal/api/filereport?accession=SRR1003257&result=read_run&fields=run_accession,study_accession,secondary_study_accession,sample_title,library_layout,library_strategy,instrument_model&format=tsv
+#
+# sample_id	run_accession	study_accession	source_sample_title	library_layout	instrument_model
+naiveB_wgbs	SRR1003257	SRP029721	wild-type resting B cells (Mus musculus)	SINGLE	Illumina HiSeq 2000
