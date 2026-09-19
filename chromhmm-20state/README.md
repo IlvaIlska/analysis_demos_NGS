@@ -53,11 +53,11 @@ prefetch SRR3619348 && fasterq-dump --split-files SRR3619348   # single-end: onl
 ## Environment
 
 ```bash
-conda create -n chromhmm-panel -c bioconda -c conda-forge \
-  fastqc trim-galore bowtie2 samtools picard macs2 openjdk
+conda env create -f environment.yml
+conda activate chromhmm-panel
 ```
 
-ChromHMM itself is a jar, not a conda package — point `$CHROMHMM_JAR` (or the `-j` flag on
-stages 3–4) at your own copy, e.g. download from
+ChromHMM itself is a jar, not a conda package (see the note in [`environment.yml`](environment.yml))
+— point `$CHROMHMM_JAR` (or the `-j` flag on stages 3–4) at your own copy, e.g. download from
 [compbio.mit.edu/ChromHMM](http://compbio.mit.edu/ChromHMM/). ChromHMM ships its own mm10 chrom
 sizes/TSS/TES coordinate files, so `-a mm10` in stage 4 works without any extra genome download.

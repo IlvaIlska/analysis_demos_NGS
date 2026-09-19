@@ -1,0 +1,12 @@
+name: wgbs-canyons
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - fastqc
+  - trim-galore
+  - bismark
+  - samtools
+  - dnmtools>=1.4
+  - bedtools
+  - deeptools

@@ -7,6 +7,26 @@
 *.bw
 *.bigWig
 
+# methylation / peak-calling / ChromHMM intermediates
+*.meth
+*.hmr
+*.hmr.params
+*.hmr.summary
+*.narrowPeak
+*.mat
+POSTERIOR/
+
+# plot/report output likely to be large or run-specific
+*.pdf
+*.png
+*.svg
+webpage_*.html
+
+# generic run output directories (scripts default to -o results/... in examples)
+results/
+out/
+outdir/
+
 # SLURM logs
 file.*.out
 file.*.err

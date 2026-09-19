@@ -85,10 +85,9 @@ References needed: a Bowtie2 index for `mm10`, and a Bowtie2 index for the T4 ph
 Original scripts assumed an OSC HPC environment (`module load fastqc bowtie2 samtools picard`,
 a conda env for MACS2/deepTools, a separately-installed Trim Galore). For portability, the
 cleaned scripts here document required tools by name in their header comments rather than
-hardcoding `module load` — install via conda/bioconda:
+hardcoding `module load` — install via [`environment.yml`](environment.yml):
 
 ```bash
-conda create -n mnase-5hmc -c bioconda -c conda-forge \
-  fastqc trim-galore bowtie2 samtools picard macs2 deeptools bedtools
-conda install -n mnase-5hmc -c bioconda -c conda-forge bioconductor-diffbind r-base
+conda env create -f environment.yml
+conda activate mnase-5hmc
 ```

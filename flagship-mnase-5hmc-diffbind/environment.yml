@@ -1,0 +1,15 @@
+name: mnase-5hmc
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - fastqc
+  - trim-galore
+  - bowtie2
+  - samtools
+  - picard
+  - macs2
+  - deeptools
+  - bedtools
+  - r-base
+  - bioconductor-diffbind

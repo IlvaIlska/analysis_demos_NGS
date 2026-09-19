@@ -1,0 +1,15 @@
+name: chromhmm-panel
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - fastqc
+  - trim-galore
+  - bowtie2
+  - samtools
+  - picard
+  - macs2
+  - openjdk
+# ChromHMM itself is a jar, not a conda package.
+# Download it separately (e.g. http://compbio.mit.edu/ChromHMM/) and point $CHROMHMM_JAR
+# (or each script's -j flag) at ChromHMM.jar.

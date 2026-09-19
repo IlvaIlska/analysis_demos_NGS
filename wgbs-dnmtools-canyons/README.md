@@ -65,8 +65,8 @@ extension rather than built out.
 ## Environment
 
 ```bash
-conda create -n wgbs-canyons -c bioconda -c conda-forge \
-  fastqc trim-galore bismark samtools dnmtools bedtools deeptools
+conda env create -f environment.yml
+conda activate wgbs-canyons
 ```
 
 dnmtools scripts here were checked against dnmtools **1.4.4**'s own CLI usage text (`dnmtools
